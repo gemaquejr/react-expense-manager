@@ -1,11 +1,15 @@
 import * as C from './styles'
 
-export const InfoArea = () => {
+type Props = {
+    currentMonth: string;
+}
+
+export const InfoArea = ({ currentMonth }: Props) => {
     return (
         <C.Container>
             <C.MonthArea>
                 <C.MonthArrow onClick={() => {}}>⬅️</C.MonthArrow>
-                <C.MonthTitle>...</C.MonthTitle>
+                <C.MonthTitle>{currentMonth}</C.MonthTitle>
                 <C.MonthArrow onClick={() => {}}>➡️</C.MonthArrow>
             </C.MonthArea>
             <C.ResumeArea>
