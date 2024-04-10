@@ -4,10 +4,12 @@ import { formatDate } from '../../helpers/dateFilter';
 import { categories } from '../../data/categories';
 
 type Props = {
-    item: Item
+    item: Item;
+    onEdit: () => void;
+    onDelete: () => void;
 }
 
-export const TableItem = ({ item }: Props) => {
+export const TableItem = ({ item, onEdit, onDelete }: Props) => {
     return (
         <C.TableLine> 
             <C.TableColumn>{formatDate(item.date)}</C.TableColumn>
@@ -21,7 +23,17 @@ export const TableItem = ({ item }: Props) => {
                 <C.Value color={categories[item.category].expense ? 'red' : 'green'}>
                     R$ {item.value}
                 </C.Value>
-            </C.TableColumn>                         
+            </C.TableColumn>
+            {onEdit && onDelete && (
+                <>
+                    <C.TableColumn>
+                        <button onClick={onEdit}>Editar</button>
+                    </C.TableColumn>
+                    <C.TableColumn>
+                        <button onClick={onDelete}>Deletar</button>
+                    </C.TableColumn>
+                </>
+            )}                                  
         </C.TableLine>
     )
 }

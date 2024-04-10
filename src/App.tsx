@@ -15,6 +15,7 @@ const App = () => {
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
+  const [isNewItemAdded, setIsNewItemAdded] = useState(false);
 
   useEffect(() => {
     setFilteredList(filterListByMonth(list, currentMonth));
@@ -34,6 +35,8 @@ const App = () => {
 
     setIncome(incomeCount);
     setExpense(expenseCount);
+
+    setIsNewItemAdded(false);
   }, [filteredList]);
 
   const handleMonthChange = (newMonth: string) => {
@@ -44,6 +47,7 @@ const App = () => {
     let newList = [...list];
     newList.push(item);
     setList(newList);
+    setIsNewItemAdded(true);
   }
 
   return (
@@ -63,7 +67,15 @@ const App = () => {
 
         <InputArea onAdd={handleAddItem} />
 
-        <TableArea list={filteredList} />        
+        <TableArea list={filteredList} isNewItemAdded={isNewItemAdded} onEdit={(item) => {
+        // Lógica para editar o item
+        console.log('Editar item:', item);
+    }}
+    onDelete={(index) => {
+      const newList = [...list];
+      newList.splice(index, 1); // Remove o item com o índice especificado
+      setList(newList); // Atualiza a lista
+    }} />        
       </C.Body>
     </C.Container>
   );
